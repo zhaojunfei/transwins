@@ -45,7 +45,7 @@ function formSubmit() {
       </tr>
       <tr>
         <td height="30" align="right">数据库名称：</td>
-        <td align="left"><input name="dbName" type="text" class="input" id="dbName" value="jeebbs_3" /></td>
+        <td align="left"><input name="dbName" type="text" class="input" id="dbName" value="transwins" /></td>
 				<td align="left">&nbsp;</td>
       </tr>
       <tr>
@@ -108,6 +108,7 @@ function formSubmit() {
   </tr>
 </table>
 <input type="hidden" name="dbFileName" value="/install/db/transwins.sql"/>
+<input type="hidden" name="initFileName" value="/install/db/transwins-init.sql"/>
 
 </form>
 </body>
