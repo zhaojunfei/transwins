@@ -12,7 +12,7 @@
 		<param-value>classpath*:/spring-context*.xml</param-value>
 	</context-param>
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.ymgy.transwins.modules.sys.listener.WebContextListener</listener-class>
 	</listener>
 	<listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
@@ -35,12 +35,23 @@
 	</filter-mapping>
 	
 	<!-- Apache Shiro -->
-	
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- PageCache, cache .html suffix.
 	<filter>
 		<filter-name>PageCacheFilter</filter-name>
-		<filter-class>com.thinkgem.jeesite.common.filter.PageCachingFilter</filter-class>
+		<filter-class>org.ymgy.transwins.common.filter.PageCachingFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>PageCacheFilter</filter-name>
@@ -52,7 +63,7 @@
 	</filter-mapping>-->
 
 	<!-- SiteMesh -->
-	<!-- <filter>
+	<filter>
 		<filter-name>sitemeshFilter</filter-name>
 		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
 	</filter>
@@ -63,7 +74,7 @@
 	<filter-mapping>
 		<filter-name>sitemeshFilter</filter-name>
 		<url-pattern>/f/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 	
 	<!-- MVC Servlet -->
 	<servlet>
@@ -81,14 +92,14 @@
 	</servlet-mapping>
 
 	<!-- Activiti diagram-view callback filter-->
-	<!-- <filter>
+	<filter>
 		<filter-name>JSONPFilter</filter-name>
-		<filter-class>com.thinkgem.jeesite.modules.act.rest.servlet.JsonpCallbackFilter</filter-class>
+		<filter-class>org.ymgy.transwins.modules.act.rest.servlet.JsonpCallbackFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>JSONPFilter</filter-name>
 		<url-pattern>/act/service/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 
 	<!-- DruidStatView -->
 	<servlet>
@@ -105,9 +116,9 @@
 	</servlet-mapping>
 	
 	<!-- CKFinder -->
-	<!-- <servlet>
+	<servlet>
 		<servlet-name>CKFinderConnectorServlet</servlet-name>
-		<servlet-class>com.thinkgem.jeesite.common.web.CKFinderConnectorServlet</servlet-class>
+		<servlet-class>org.ymgy.transwins.common.web.CKFinderConnectorServlet</servlet-class>
 		<init-param>
 			<param-name>XMLConfig</param-name>
 			<param-value>/WEB-INF/ckfinder.xml</param-value>
@@ -118,7 +129,7 @@
 		</init-param>
 		<init-param>
 			<param-name>configuration</param-name>
-			<param-value>com.thinkgem.jeesite.common.web.CKFinderConfig</param-value>
+			<param-value>org.ymgy.transwins.common.web.CKFinderConfig</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -141,32 +152,42 @@
 	<filter-mapping>
 		<filter-name>FileUploadFilter</filter-name>
 		<url-pattern>/static/ckfinder/core/connector/java/connector.java</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 
 	<!-- Userfiles download -->
-	<!-- <servlet>
+	<servlet>
 	  	<servlet-name>UserfilesDownloadServlet</servlet-name>
-	  	<servlet-class>com.thinkgem.jeesite.common.servlet.UserfilesDownloadServlet</servlet-class>
+	  	<servlet-class>org.ymgy.transwins.common.servlet.UserfilesDownloadServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 	  	<servlet-name>UserfilesDownloadServlet</servlet-name>
 	  	<url-pattern>/userfiles/*</url-pattern>
-	</servlet-mapping> -->
+	</servlet-mapping>
 	
 	<!-- Validate code -->
-	<!-- <servlet>
+	<servlet>
 		<servlet-name>ValidateCodeServlet</servlet-name>
-		<servlet-class>com.thinkgem.jeesite.common.servlet.ValidateCodeServlet</servlet-class>
+		<servlet-class>org.ymgy.transwins.common.servlet.ValidateCodeServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ValidateCodeServlet</servlet-name>
 		<url-pattern>/servlet/validateCodeServlet</url-pattern>
-	</servlet-mapping> -->
+	</servlet-mapping>
 	
 	
-	
+	<servlet>
+        <description>Apache CXF Endpoint</description>
+        <display-name>cxf</display-name>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-   
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+	
 	
 	<!-- FineReport 
 	<servlet>

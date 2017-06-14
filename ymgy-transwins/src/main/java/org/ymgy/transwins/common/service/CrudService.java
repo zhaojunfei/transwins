@@ -7,11 +7,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.ymgy.transwins.common.dao.CrudDao;
-import org.ymgy.transwins.common.domain.BaseEntity;
-import org.ymgy.transwins.common.web.Page;
-
-
+import org.ymgy.transwins.common.persistence.CrudDao;
+import org.ymgy.transwins.common.persistence.DataEntity;
+import org.ymgy.transwins.common.persistence.Page;
 
 /**
  * Service基类
@@ -19,7 +17,7 @@ import org.ymgy.transwins.common.web.Page;
  * @version 2014-05-16
  */
 @Transactional(readOnly = true)
-public abstract class CrudService<D extends CrudDao<T>, T extends BaseEntity<T>> extends BaseService {
+public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>> extends BaseService {
 	
 	/**
 	 * 持久层对象
@@ -66,10 +64,21 @@ public abstract class CrudService<D extends CrudDao<T>, T extends BaseEntity<T>>
 		return page;
 	}
 
+	/**
+	 * 保存数据（插入或更新）
+	 * @param entity
+	 */
 	@Transactional(readOnly = false)
 	public void save(T entity) {
-		dao.insert(entity);
+		if (entity.getIsNewRecord()){
+			entity.preInsert();
+			dao.insert(entity);
+		}else{
+			entity.preUpdate();
+			dao.update(entity);
+		}
 	}
+	
 	/**
 	 * 删除数据
 	 * @param entity

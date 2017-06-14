@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.core.io.DefaultResourceLoader;
-import org.ymgy.transwins.common.util.PropertiesLoader;
-import org.ymgy.transwins.common.util.StringUtils;
+import org.ymgy.transwins.common.utils.PropertiesLoader;
+import org.ymgy.transwins.common.utils.StringUtils;
 
+import com.ckfinder.connector.ServletContextFactory;
 import com.google.common.collect.Maps;
 
 /**
@@ -33,7 +34,7 @@ public class Global {
 	/**
 	 * 属性文件加载对象
 	 */
-	private static PropertiesLoader loader = new PropertiesLoader("jeesite.properties");
+	private static PropertiesLoader loader = new PropertiesLoader("application.properties");
 
 	/**
 	 * 显示/隐藏
@@ -136,7 +137,7 @@ public class Global {
 		String dir = getConfig("userfiles.basedir");
 		if (StringUtils.isBlank(dir)){
 			try {
-				//dir = ServletContextFactory.getServletContext().getRealPath("/");
+				dir = ServletContextFactory.getServletContext().getRealPath("/");
 			} catch (Exception e) {
 				return "";
 			}

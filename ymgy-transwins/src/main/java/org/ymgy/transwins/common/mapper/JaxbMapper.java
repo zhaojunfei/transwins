@@ -19,10 +19,9 @@ import javax.xml.namespace.QName;
 
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.util.Assert;
-import org.ymgy.transwins.common.util.Exceptions;
-import org.ymgy.transwins.common.util.Reflections;
-import org.ymgy.transwins.common.util.StringUtils;
-
+import org.ymgy.transwins.common.utils.Exceptions;
+import org.ymgy.transwins.common.utils.Reflections;
+import org.ymgy.transwins.common.utils.StringUtils;
 
 /**
  * 使用Jaxb2.0实现XML<->Java Object的Mapper.
